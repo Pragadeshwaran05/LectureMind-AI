@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="upload-container">
+    <h2>Upload Your Lecture</h2>
+    
+    <div class="upload-area" id="uploadArea">
+        <div class="upload-icon">📄</div>
+        <h3>Drag & Drop your file here</h3>
+        <p>or</p>
+        <label for="fileInput" class="btn btn-secondary">Browse Files</label>
+        <input type="file" id="fileInput" accept=".mp3,.wav,.m4a,.mp4,.mov,.mkv" hidden>
+        <p class="file-hint">Supported formats: MP3, WAV, M4A, MP4, MOV, MKV</p>
+    </div>
+    
+    <div id="fileInfo" class="file-info hidden">
+        <div class="file-details">
+            <span id="fileName">filename.mp3</span>
+        </div>
+        <button id="uploadBtn" class="btn btn-primary">Start Processing</button>
+    </div>
+    
+    <div id="processingState" class="processing-state hidden">
+        <h3>Processing your lecture...</h3>
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <ul class="process-steps">
+            <li id="step1" class="active">Uploading...</li>
+            <li id="step2" class="pending">Extracting audio (if video)...</li>
+            <li id="step3" class="pending">Transcribing lecture...</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+{% endblock %}

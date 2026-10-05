@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h2>AI Quiz Generator</h2>
+    <div class="lecture-meta">
+        <span class="badge">Lecture: {{ lecture['title'] }}</span>
+    </div>
+</div>
+
+<div class="quiz-container" id="quizContainer">
+    <div class="quiz-progress">
+        <span>Question <span id="currentQuestionNum">1</span> of {{ questions|length }}</span>
+    </div>
+    
+    <div class="questions-wrapper">
+        {% for q in questions %}
+        <div class="question-card {% if loop.first %}active{% else %}hidden{% endif %}" id="question-{{ loop.index0 }}" data-id="{{ q['id'] }}">
+            <h3 class="question-text">{{ q['question'] }}</h3>
+            <div class="options">
+                <label class="option-label">
+                    <input type="radio" name="q_{{ q['id'] }}" value="A">
+                    <span class="option-text">A. {{ q['option_a'] }}</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="q_{{ q['id'] }}" value="B">
+                    <span class="option-text">B. {{ q['option_b'] }}</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="q_{{ q['id'] }}" value="C">
+                    <span class="option-text">C. {{ q['option_c'] }}</span>
+                </label>
+                <label class="option-label">
+                    <input type="radio" name="q_{{ q['id'] }}" value="D">
+                    <span class="option-text">D. {{ q['option_d'] }}</span>
+                </label>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <div class="quiz-actions">
+        <button id="prevBtn" class="btn btn-secondary" disabled>Previous</button>
+        <button id="nextBtn" class="btn btn-primary">Next</button>
+        <button id="submitBtn" class="btn btn-success hidden">Submit Quiz</button>
+    </div>
+</div>
+
+<div id="resultsContainer" class="results-container hidden">
+    <div class="score-card">
+        <h2>Quiz Results</h2>
+        <div class="score-display">
+            <span class="score" id="finalScore">0 / 0</span>
+            <span class="percentage" id="finalPercentage">0%</span>
+        </div>
+        <div class="score-stats">
+            <span class="correct">✓ Correct: <span id="correctCount">0</span></span>
+            <span class="incorrect">✗ Incorrect: <span id="incorrectCount">0</span></span>
+        </div>
+    </div>
+    
+    <div class="detailed-results" id="detailedResults">
+        <!-- JS will populate this -->
+    </div>
+    
+    <div class="next-actions">
+        <a href="/" class="btn btn-primary">Back to Home</a>
+    </div>
+</div>
+
+<!-- Add the hidden variables to pass to JS -->
+<script>
+    const lectureId = "{{ lecture['id'] }}";
+    const totalQuestions = {{ questions|length }};
+</script>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+{% endblock %}

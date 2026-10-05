@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="hero">
+    <h1>Turn Every Lecture into <span class="highlight">Intelligent Study Material</span></h1>
+    <p class="subtitle">Upload a lecture and transform it into a transcript, intelligent study notes and an AI-generated quiz.</p>
+    <a href="/upload" class="btn btn-primary btn-large">Analyze My Lecture</a>
+</div>
+
+<div class="features-grid">
+    <div class="feature-card">
+        <div class="feature-icon">🎙️</div>
+        <h3>Real Speech-to-Text</h3>
+        <p>Upload audio or video and get an accurate transcript using Whisper ASR technology.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>AI Study Analysis</h3>
+        <p>Automatically generate summaries, important topics, key points, and structured study notes.</p>
+    </div>
+    
+    <div class="feature-card">
+        <div class="feature-icon">❓</div>
+        <h3>AI Quiz</h3>
+        <p>Test your knowledge with AI-generated multiple choice questions and real scoring.</p>
+    </div>
+</div>
+{% endblock %}

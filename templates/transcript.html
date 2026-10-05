@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Lecture Transcript</h2>
+    <div class="lecture-meta">
+        <span class="badge">Lecture: {{ lecture['title'] }}</span>
+        <span class="badge badge-secondary">Format: {{ lecture['file_type'] }}</span>
+    </div>
+</div>
+
+<div class="card transcript-card">
+    <div class="card-header">
+        <h3>Transcript</h3>
+        <div class="actions">
+            <button class="btn btn-sm btn-outline" id="copyBtn">Copy Transcript</button>
+            <a href="{{ url_for('download_transcript', lecture_id=lecture['id']) }}" class="btn btn-sm btn-outline">Download TXT</a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="transcript-content" id="transcriptContent">
+            {{ transcript }}
+        </div>
+    </div>
+</div>
+
+<div class="next-actions">
+    <a href="{{ url_for('analysis', lecture_id=lecture['id']) }}" class="btn btn-primary btn-large">Continue to AI Analysis ➔</a>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.getElementById('copyBtn').addEventListener('click', function() {
+        const text = document.getElementById('transcriptContent').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const originalText = this.innerText;
+            this.innerText = 'Copied!';
+            setTimeout(() => {
+                this.innerText = originalText;
+            }, 2000);
+        });
+    });
+</script>
+{% endblock %}

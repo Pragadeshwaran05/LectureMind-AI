@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h2>AI Study Analysis</h2>
+    <div class="lecture-meta">
+        <span class="badge">Lecture: {{ lecture['title'] }}</span>
+    </div>
+</div>
+
+<div class="analysis-grid">
+    <div class="card analysis-card summary-card">
+        <div class="card-header">
+            <h3>📝 Summary</h3>
+        </div>
+        <div class="card-body">
+            <p>{{ analysis['summary'] }}</p>
+        </div>
+    </div>
+    
+    <div class="card analysis-card topics-card">
+        <div class="card-header">
+            <h3>🧠 Important Topics</h3>
+        </div>
+        <div class="card-body">
+            <ul class="topic-list">
+                {% for topic in topics %}
+                <li>
+                    <strong>{{ topic['name'] }}</strong>
+                    <p>{{ topic['description'] }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card analysis-card key-points-card">
+        <div class="card-header">
+            <h3>✨ Key Points</h3>
+        </div>
+        <div class="card-body">
+            <ul class="key-points-list">
+                {% for point in key_points %}
+                <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    
+    <div class="card analysis-card notes-card">
+        <div class="card-header">
+            <h3>📚 Structured Study Notes</h3>
+        </div>
+        <div class="card-body markdown-body">
+            <pre class="notes-content">{{ analysis['study_notes'] }}</pre>
+        </div>
+    </div>
+</div>
+
+<div class="next-actions">
+    <a href="{{ url_for('quiz', lecture_id=lecture['id']) }}" class="btn btn-primary btn-large">Generate AI Quiz ➔</a>
+</div>
+{% endblock %}
